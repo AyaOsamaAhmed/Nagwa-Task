@@ -1,6 +1,6 @@
 package com.aya.nagwa_task.data.dataSource.remote
 
-import com.aya.nagwa_task.model.MovieResponse
+import com.aya.nagwa_task.domian.model.MovieResponse
 import dagger.Component
 import retrofit2.http.GET
 

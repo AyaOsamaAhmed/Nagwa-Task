@@ -1,5 +1,6 @@
-package com.aya.nagwa_task.data.dataSource.remote
+package com.aya.nagwa_task.di.modules
 
+import com.aya.nagwa_task.data.dataSource.remote.Api
 import com.aya.nagwa_task.presentation.utils.Constant.BASE_URL_API
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -11,12 +12,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 // @Module informs Dagger that this class is a Dagger Module
 @Module
 object ApiClient {
 
     // @Provides tell Dagger how to create instances of the type that this function
+    @Singleton
     @Provides
     private fun retrofitService(): Retrofit {
         return Retrofit.Builder()
@@ -26,6 +29,8 @@ object ApiClient {
             .build()
     }
 
+    @Singleton
+    @Provides
     private fun okHttpClient(): OkHttpClient {
 
         val loggingInterceptor = HttpLoggingInterceptor()
@@ -46,6 +51,9 @@ object ApiClient {
             .addInterceptor(interceptor)
             .build()
     }
+
+    @Singleton
+    @Provides
     private fun headersInterceptor() = Interceptor { chain ->
         chain.proceed(
             chain.request().newBuilder()
@@ -54,6 +62,9 @@ object ApiClient {
                 .build()
         )
     }
+
+    @Singleton
+    @Provides
     private fun gSon (): Gson {
         return GsonBuilder()
             .setLenient()

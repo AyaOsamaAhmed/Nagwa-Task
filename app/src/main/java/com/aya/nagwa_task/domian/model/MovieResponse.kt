@@ -1,4 +1,4 @@
-package com.aya.nagwa_task.model
+package com.aya.nagwa_task.domian.model
 
 
 class MovieResponse (
