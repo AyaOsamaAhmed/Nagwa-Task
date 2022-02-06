@@ -2,23 +2,27 @@ package com.aya.nagwa_task.presentation.ui.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aya.nagwa_task.data.dataSource.remote.Api
 import com.aya.nagwa_task.domian.model.Movie
-import com.aya.nagwa_task.domian.model.MovieResponse
+import io.reactivex.schedulers.Schedulers
 
-class MainActivityViewModel ( movieResponse: MovieResponse) : ViewModel() {
+class MainActivityViewModel ( movieApi: Api) : ViewModel() {
 
-    var movieResponse: MovieResponse = movieResponse
-    var listMovies : MutableLiveData<Movie>  = MutableLiveData ()
+    var api: Api = movieApi
+    var listMovies : MutableLiveData<ArrayList<Movie>>  = MutableLiveData ()
 
     init {
-        fetchListMovie()
-    }
-    fun fetchListMovie(){
 
+        api.getMovie().toObservable()
+            .subscribeOn(Schedulers.io())
+           // .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                listMovies.value = it.data
+            }
     }
 
-    @JvmName("getListMovies1")
-    fun getListMovies(): MutableLiveData<Movie> {
+
+    fun getListMovie(): MutableLiveData<ArrayList<Movie>> {
         return  listMovies
     }
 

@@ -21,7 +21,7 @@ object ApiClient {
     // @Provides tell Dagger how to create instances of the type that this function
     @Singleton
     @Provides
-    private fun retrofitService(): Retrofit {
+     fun retrofitService(): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create(gSon()))
             .client(okHttpClient())
@@ -31,7 +31,7 @@ object ApiClient {
 
     @Singleton
     @Provides
-    private fun okHttpClient(): OkHttpClient {
+     fun okHttpClient(): OkHttpClient {
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -54,7 +54,7 @@ object ApiClient {
 
     @Singleton
     @Provides
-    private fun headersInterceptor() = Interceptor { chain ->
+     fun headersInterceptor() = Interceptor { chain ->
         chain.proceed(
             chain.request().newBuilder()
                 .addHeader("Content-Type", "application/json")
@@ -65,7 +65,7 @@ object ApiClient {
 
     @Singleton
     @Provides
-    private fun gSon (): Gson {
+     fun gSon (): Gson {
         return GsonBuilder()
             .setLenient()
             .create()
