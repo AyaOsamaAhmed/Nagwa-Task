@@ -24,12 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         binging = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        viewModel = ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory.getInstance(
-                application
-            )
-        )[MainActivityViewModel::class.java]
-        //ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         viewModel.getListMovie().observe(this , Observer {
 
